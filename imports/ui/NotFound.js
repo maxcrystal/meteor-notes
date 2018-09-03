@@ -1,12 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Jumbotron } from 'reactstrap';
 
 export default (props) => (
   <div className="boxed-view">
-    <div className="boxed-view__box">
+    <Jumbotron>
       <h1>404 - Page Not Found</h1>
       <p>Can't find the requested page.</p>
-      <Link className="button button--link" to="/">Home</Link>
-    </div>
+      <Link role="button" className="btn btn-primary" to="/">Home</Link>
+    </Jumbotron>
   </div>
 );

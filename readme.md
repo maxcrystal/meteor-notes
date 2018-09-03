@@ -1,3 +1,3 @@
 # Meteor Boilerplate
 
-Basic react and auth setup.
+Basic react and auth setup with bootstrap4.

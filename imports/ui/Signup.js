@@ -1,7 +1,9 @@
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
-import {Accounts} from 'meteor/accounts-base';
-import {Meteor} from 'meteor/meteor';
+import { Link, Redirect } from 'react-router-dom';
+import { Jumbotron, Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+
 
 export default class Signup extends React.Component {
   constructor(props) {
@@ -14,8 +16,8 @@ export default class Signup extends React.Component {
   onSubmit(e) {
     e.preventDefault();
 
-    let email = this.refs.email.value.trim();
-    let password = this.refs.password.value.trim();
+    let email = this.refs.email.refs.input.value.trim();
+    let password = this.refs.password.refs.input.value.trim();
 
     if (password.length < 9) {
       this.setState({error: 'Password must be at least 9 characters long'});
@@ -36,19 +38,18 @@ export default class Signup extends React.Component {
     if (!this.state.loggedIn) {
       return (
         <div className="boxed-view">
-          <div className="boxed-view__box">
-            <h1>Join</h1>
-
-            {this.state.error ? <p>{this.state.error}</p> : undefined}
-
-            <form className="boxed-view__form" onSubmit={this.onSubmit.bind(this)} noValidate>
-              <input type="email" name="email" ref="email" placeholder="Email" autoComplete="email"/>
-              <input type="password" name="password" ref="password" placeholder="Password" autoComplete="new_password"/>
-              <button className="button">Create Account</button>
-            </form>
-
-            <Link to="/">Have an account?</Link>
-          </div>
+          <Jumbotron>
+            <h2>Join</h2>
+            {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : undefined}
+            <Form onSubmit={this.onSubmit.bind(this)}>
+              <FormGroup>
+                <Input className="boxed-view__item" type="email" name="email" ref="email" innerRef="input" placeholder="Email" autoComplete="email"/>
+                <Input className="boxed-view__item" type="password" name="password" ref="password" innerRef="input" placeholder="Password" autoComplete="new_password"/>
+              </FormGroup>
+              <Button className="boxed-view__item" color="primary" block>Create Account</Button>
+            </Form>
+            <Link className="boxed-view__link" to="/">Have an account?</Link>
+          </Jumbotron>
         </div>
       );
     } else {

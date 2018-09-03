@@ -1,7 +1,8 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Meteor } from 'meteor/meteor';
 import { Redirect } from 'react-router-dom';
+import { Container, Navbar, NavbarBrand, Nav, NavItem, Button } from 'reactstrap';
 
 
 export default class PrivateHeader extends React.Component {
@@ -18,12 +19,16 @@ export default class PrivateHeader extends React.Component {
   render() {
     if (this.state.loggedIn) {
       return (
-        <div className="title-bar">
-          <div className="title-bar__content">
-            <h1 className="title-bar__title">{this.props.title}</h1>
-            <button className="button button--nav" onClick={this.onLogout.bind(this)}>Logout</button>
-          </div>
-        </div>
+        <Navbar className="title-bar">
+          <Container>
+            <NavbarBrand className="title-bar__brand">{this.props.title}</NavbarBrand>
+            <Nav>
+              <NavItem>
+                <Button className="title-bar__link" color="link" onClick={this.onLogout.bind(this)}>Logout</Button>
+              </NavItem>
+            </Nav>  
+          </Container>
+        </Navbar>
       );
     } else {
       return <Redirect to="/" />;

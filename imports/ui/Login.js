@@ -1,6 +1,7 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
-import {Meteor} from 'meteor/meteor';
+import { Link, Redirect } from 'react-router-dom';
+import { Jumbotron, Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -13,8 +14,8 @@ export default class Login extends React.Component {
   onSubmit(e) {
     e.preventDefault();
 
-    let email = this.refs.email.value.trim();
-    let password = this.refs.password.value.trim();
+    let email = this.refs.email.refs.input.value.trim();
+    let password = this.refs.password.refs.input.value.trim();
 
     Meteor.loginWithPassword({email}, password, error => {
       if (!error) {
@@ -31,19 +32,18 @@ export default class Login extends React.Component {
     if (!this.state.loggedIn) {
       return (
         <div className="boxed-view">
-          <div className="boxed-view__box">
-            <h1>Login</h1>
-
-            {this.state.error ? <p>{this.state.error}</p> : undefined}
-
-            <form className="boxed-view__form" onSubmit={this.onSubmit.bind(this)} noValidate>
-              <input type="email" name="email" ref="email" placeholder="Email" autoComplete="email"/>
-              <input type="password" name="password" ref="password" placeholder="Password" autoComplete="current_password"/>
-              <button className="button">Login</button>
-            </form>
-
-            <Link to="/signup">Create an account?</Link>
-          </div>
+          <Jumbotron>
+            <h2>Login</h2>
+            {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : undefined}
+            <Form onSubmit={this.onSubmit.bind(this)}>
+              <FormGroup>
+                <Input className="boxed-view__item" type="email" name="email" ref="email" innerRef="input" placeholder="Email" autoComplete="email"/>
+                <Input className="boxed-view__item" type="password" name="password" ref="password" innerRef="input" placeholder="Password" autoComplete="current_password"/>
+              </FormGroup>
+              <Button className="boxed-view__item" color="primary" block>Login</Button>
+            </Form>
+            <Link className="boxed-view__link" className="" to="/signup">Create an account?</Link>
+          </Jumbotron>
         </div>
       );
     } else {

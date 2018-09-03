@@ -1,38 +1,21 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
 html {
-  font-size: 62.5%;
+  font-size: 0.7rem;
 }
 
-body {
-  font-size: $base-font-size;
-  font-family: Helvetica, Arial, sans-serif;
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 0.8rem;
+  }
 }
 
-h1 {
-  font-weight: 300;
-  margin-bottom: $space;
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 0.9rem;
+  }
 }
 
-h2 {
-  font-size: $large-font-size;
-  margin-bottom: $space;
-}
-
-p {
-  margin-bottom: $space;
-}
-
-a {
-  color: black;
-}
-
-input[type=text], input[type=email], input[type=password] {
-  font-size: $base-font-size;
-  margin-bottom: $space;
-  padding: $input-spacing;
-  border: 1px solid $input-border;
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1rem;
+  }
 }
