@@ -47,7 +47,7 @@ export default class Login extends React.Component {
         </div>
       );
     } else {
-      return <Redirect to="/dashboard"/>;
+      return <Redirect to="/dashboard" />;
     }
   };
 };

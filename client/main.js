@@ -1,13 +1,11 @@
-//import './main.html';
-
+import {Meteor} from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Meteor} from 'meteor/meteor';
 // import {Tracker} from 'meteor/tracker';
 
-import Routs from './../imports/routs/routs.js';
+import renderRouts from './../imports/routs/routs.js';
 import './../imports/startup/simpl-schema-config.js';
 
 Meteor.startup(() => {
-  ReactDOM.render((<Routs/>), document.getElementById('app'));
+  ReactDOM.render(renderRouts(), document.getElementById('app'));
 });
