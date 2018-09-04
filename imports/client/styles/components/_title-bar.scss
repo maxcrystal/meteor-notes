@@ -6,11 +6,11 @@
 }
 
 .title-bar__brand {
-  color: white !important;
+  color: lighten($primary, 45) !important;
 }
 
 .title-bar__link {
-  color: $gray-200;
+  color: lighten($primary, 45);
 }
 
 .title-bar__link:hover{

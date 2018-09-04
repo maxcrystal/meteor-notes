@@ -1,7 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Jumbotron, Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+
+import BoxedView from './BoxedView.js';
+
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -31,8 +34,7 @@ export default class Login extends React.Component {
   render() {
     if (!this.state.loggedIn) {
       return (
-        <div className="boxed-view">
-          <Jumbotron>
+        <BoxedView className="shadow">
             <h2>Login</h2>
             {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : undefined}
             <Form onSubmit={this.onSubmit.bind(this)}>
@@ -42,9 +44,8 @@ export default class Login extends React.Component {
               </FormGroup>
               <Button className="boxed-view__item" color="primary" block>Login</Button>
             </Form>
-            <Link className="boxed-view__link" className="" to="/signup">Create an account?</Link>
-          </Jumbotron>
-        </div>
+            <Link className="boxed-view__link" to="/signup">Create an account?</Link>
+        </BoxedView>
       );
     } else {
       return <Redirect to="/dashboard" />;

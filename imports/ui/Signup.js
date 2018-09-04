@@ -2,7 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Jumbotron, Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+
+import BoxedView from './BoxedView.js';
 
 
 export default class Signup extends React.Component {
@@ -37,20 +39,18 @@ export default class Signup extends React.Component {
   render() {
     if (!this.state.loggedIn) {
       return (
-        <div className="boxed-view">
-          <Jumbotron>
-            <h2>Join</h2>
-            {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : undefined}
-            <Form onSubmit={this.onSubmit.bind(this)}>
-              <FormGroup>
-                <Input className="boxed-view__item" type="email" name="email" ref="email" innerRef="input" placeholder="Email" autoComplete="email"/>
-                <Input className="boxed-view__item" type="password" name="password" ref="password" innerRef="input" placeholder="Password" autoComplete="new_password"/>
-              </FormGroup>
-              <Button className="boxed-view__item" color="primary" block>Create Account</Button>
-            </Form>
-            <Link className="boxed-view__link" to="/">Have an account?</Link>
-          </Jumbotron>
-        </div>
+        <BoxedView className="shadow">
+          <h2>Join</h2>
+          {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : undefined}
+          <Form onSubmit={this.onSubmit.bind(this)}>
+            <FormGroup>
+              <Input className="boxed-view__item" type="email" name="email" ref="email" innerRef="input" placeholder="Email" autoComplete="email"/>
+              <Input className="boxed-view__item" type="password" name="password" ref="password" innerRef="input" placeholder="Password" autoComplete="new_password"/>
+            </FormGroup>
+            <Button className="boxed-view__item" color="primary" block>Create Account</Button>
+          </Form>
+          <Link className="boxed-view__link" to="/">Have an account?</Link>
+        </BoxedView>
       );
     } else {
       return <Redirect to="/dashboard"/>;
