@@ -5,8 +5,8 @@
     "start": "meteor run",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "test": "meteor test --driver-package cultofcoders:mocha",
-    "pretest": "npm run lint --silent",
-    "lint": "eslint ."
+    "_pretest": "npm run lint --silent",
+    "_lint": "eslint ."
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
@@ -31,7 +31,7 @@
     "node": "8.11.4"
   },
   "devDependencies": {
-    "enzyme": "^3.5.1",
+    "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.4.0",
     "should": "^13.2.3",
     "should-sinon": "0.0.6",

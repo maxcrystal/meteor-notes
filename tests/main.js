@@ -9,3 +9,5 @@ import './api/notes.test';
 import './ui/TitleBar.test';
 import './ui/Login.test';
 import './ui/Signup.test';
+import './ui/NoteListItem.test';
+import './ui/NoteListHeader.test';
