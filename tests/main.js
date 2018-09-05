@@ -1,20 +1,11 @@
-import assert from "assert";
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-describe("boilerplatestrap", function () {
-  it("package.json has correct name", async function () {
-    const { name } = await import("../package.json");
-    assert.strictEqual(name, "short-lnk");
-  });
+Enzyme.configure({ adapter: new Adapter() });
 
-  if (Meteor.isClient) {
-    it("client is not server", function () {
-      assert.strictEqual(Meteor.isServer, false);
-    });
-  }
 
-  if (Meteor.isServer) {
-    it("server is not client", function () {
-      assert.strictEqual(Meteor.isClient, false);
-    });
-  }
-});
+import './api/users.test';
+import './api/notes.test';
+import './ui/TitleBar.test';
+import './ui/Login.test';
+import './ui/Signup.test';

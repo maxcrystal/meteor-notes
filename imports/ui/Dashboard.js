@@ -1,14 +1,15 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 
-import PrivateHeader from './PrivateHeader.js';
+import Private from './Private.js';
+import TitleBar from './TitleBar.js';
 
 
 export default (props) => (
-  <div>
-    <PrivateHeader title="Dashboard"/> 
+  <Private redirect="/">
+    <TitleBar title="Dashboard"/> 
     <Container className="page-content">  
       <p>Page Content</p>
     </Container>
-  </div>
+  </Private>
 );
