@@ -7,7 +7,7 @@ import should from 'should';
 import sinon from 'sinon';
 import 'should-sinon';
 
-import { TitleBar }from './../../imports/ui/TitleBar';
+import { TitleBar } from './../../imports/ui/TitleBar';
 
 
 if (Meteor.isClient) {
@@ -23,13 +23,6 @@ if (Meteor.isClient) {
       const wrapper = mount(<TitleBar title={title} handleLogout={() => {}} />);
       wrapper.find('NavbarBrand').text().should.eql(title);
     });
-
-    // it('should call the function', function() {
-    //   const spy = sinon.spy()
-    //   spy(1, 2, 3);
-    //   spy('a');
-    //   spy.should.be.called();
-    // });
 
     it('should call handleLogout on click', function() {
       const spy = sinon.spy();
