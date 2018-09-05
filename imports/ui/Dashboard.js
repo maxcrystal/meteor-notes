@@ -6,7 +6,7 @@ import TitleBar from './TitleBar';
 import NoteList from './NoteList';
 
 
-export default (props) => (
+const Dashboard = props => (
   <Private redirect="/">
     <TitleBar title="Dashboard" /> 
     <Container className="page-content">  
@@ -14,3 +14,5 @@ export default (props) => (
     </Container>
   </Private>
 );
+
+export default Dashboard;

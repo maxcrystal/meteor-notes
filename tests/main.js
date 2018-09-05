@@ -11,3 +11,4 @@ import './ui/Login.test';
 import './ui/Signup.test';
 import './ui/NoteListItem.test';
 import './ui/NoteListHeader.test';
+import './ui/NoteList.test';
