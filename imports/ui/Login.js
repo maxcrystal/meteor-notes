@@ -1,12 +1,14 @@
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 
 import BoxedView from './BoxedView.js';
 
 
-export default class Login extends React.Component {
+export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,13 +16,14 @@ export default class Login extends React.Component {
       loggedIn: !!Meteor.userId(),
     }
   }
+
   onSubmit(e) {
     e.preventDefault();
 
     let email = this.refs.email.refs.input.value.trim();
     let password = this.refs.password.refs.input.value.trim();
 
-    Meteor.loginWithPassword({email}, password, error => {
+    this.props.loginWithPassword({email}, password, error => {
       if (!error) {
         this.setState({
           error: '',
@@ -31,6 +34,7 @@ export default class Login extends React.Component {
       }
     });
   }
+
   render() {
     if (!this.state.loggedIn) {
       return (
@@ -48,7 +52,19 @@ export default class Login extends React.Component {
         </BoxedView>
       );
     } else {
-      return <Redirect to="/dashboard" />;
+      return <Redirect to={this.props.redirect} />;
     }
   };
 };
+
+Login.propTypes = {
+  loginWithPassword: PropTypes.func.isRequired,
+  redirect: PropTypes.string.isRequired,
+};
+
+export default withTracker(props => {
+  return {
+    loginWithPassword: Meteor.loginWithPassword,
+    redirect: '/dashboard',
+  };
+})(Login);

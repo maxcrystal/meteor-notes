@@ -1,13 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 
 import BoxedView from './BoxedView.js';
 
 
-export default class Signup extends React.Component {
+export class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +28,7 @@ export default class Signup extends React.Component {
       return;
     }
 
-    Accounts.createUser({email, password}, error => {
+    this.props.createUser({email, password}, error => {
       if (!error) {
         this.setState({
           error: '',
@@ -53,7 +55,20 @@ export default class Signup extends React.Component {
         </BoxedView>
       );
     } else {
-      return <Redirect to="/dashboard"/>;
+      return <Redirect to={this.props.redirect}/>;
     }
   }
 }
+
+Signup.propTypes = {
+  createUser: PropTypes.func.isRequired,
+  redirect: PropTypes.string.isRequired,
+};
+
+export default withTracker(props => {
+  return {
+    createUser: Accounts.createUser,
+    redirect: '/dashboard',
+  };
+})(Signup);
+

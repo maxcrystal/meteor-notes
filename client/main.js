@@ -3,9 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import {Tracker} from 'meteor/tracker';
 
-import renderRouts from './../imports/routs/routs.js';
+import Routs from './../imports/routs/Routs.js';
 import './../imports/startup/simpl-schema-config.js';
 
 Meteor.startup(() => {
-  ReactDOM.render(renderRouts(), document.getElementById('app'));
+  ReactDOM.render(<Routs />, document.getElementById('app'));
 });
