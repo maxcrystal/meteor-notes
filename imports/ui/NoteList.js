@@ -39,10 +39,10 @@ export default withTracker(props => {
 
   return {
     notes: Notes.find({}, {sort: {updatedAt: -1}}).fetch().map(note => {
-    return {
-      ...note,
-      selected: note._id === selectedNoteId,
-    };
+      return {
+        ...note,
+        selected: note._id === selectedNoteId,
+      };
     }),
   };
 })(withRouter(NoteList)); 

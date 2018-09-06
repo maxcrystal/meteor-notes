@@ -20,7 +20,7 @@ export const NoteListHeader = props => {
 
 NoteListHeader.propTypes = {
   meteorCall: PropTypes.func.isRequired,
-  Session: PropTypes.object.isRequired,
+  Session: PropTypes.object,
 }
 
 export default withTracker(props => {
