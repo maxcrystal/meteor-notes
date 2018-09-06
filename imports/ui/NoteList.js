@@ -33,8 +33,6 @@ NoteList.propTypes = {
   notes: PropTypes.array.isRequired,
 };
 
-const NoteListWithRouter = withRouter(NoteList);
-
 export default withTracker(props => {
   const selectedNoteId = Session.get('selectedNoteId');
   Meteor.subscribe('notes');
@@ -47,4 +45,4 @@ export default withTracker(props => {
       };
     }),
   };
-})(NoteListWithRouter); 
+})(withRouter(NoteList)); 
