@@ -27,6 +27,7 @@ export class Editor extends React.Component {
         title: this.props.note.title,
         body: this.props.note.body,
       });
+      this.refs.title.refs.input.focus();
     }
   }
 
@@ -52,7 +53,7 @@ export class Editor extends React.Component {
     if (this.props.note) {
       return (
         <div>
-          <Input value={this.state.title} placeholder="Untitled" onChange={this.handleTitleChange.bind(this)} />
+          <Input ref="title" innerRef="input" value={this.state.title} placeholder="Untitled" onChange={this.handleTitleChange.bind(this)} />
           <Input type="textarea" value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)} />
           <Button color="danger" onClick={this.handelDeleteNote.bind(this)}>Delete Note</Button>
         </div>
