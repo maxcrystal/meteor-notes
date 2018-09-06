@@ -7,7 +7,7 @@ import should from 'should';
 import sinon from 'sinon';
 import 'should-sinon';
 
-import NoteListItem from './../../imports/ui/NoteListItem';
+import { NoteListItem } from './../../imports/ui/NoteListItem';
 
 
 if (Meteor.isClient) {

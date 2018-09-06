@@ -14,6 +14,7 @@ export default (props) => (
         <Route exact path="/" component={Login}/>
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/dashboard" component={Dashboard}/>
+        <Route exact path="/dashboard/:id" component={Dashboard}/>
         <Route path="*" component={NotFound}/>
       </Switch>
     </div>
