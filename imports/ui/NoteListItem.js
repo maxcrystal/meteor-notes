@@ -14,6 +14,7 @@ export const NoteListItem = props => {
       props.history.replace(`/dashboard/${props.note._id}`);
     }}>
       <h5>{props.note.title || 'Untitled'}</h5>
+      {props.note.selected ? 'selected' : undefined}
       <p>{moment(props.note.updatedAt).format('D.MM.Y')}</p>
     </div>
   );

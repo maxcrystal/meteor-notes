@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Session } from 'meteor/session';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import { Notes } from './../api/notes';
 import NoteListHeader from './NoteListHeader';
@@ -9,26 +11,40 @@ import NoteListItem from './NoteListItem';
 import NoteListEmptyItem from './NoteListEmptyItem';
 
 
-export const NoteList = props => {
-  return (
-    <div>
-      <NoteListHeader />
-      {props.notes.length ? undefined : <NoteListEmptyItem />}
-      {props.notes.map(note => (
-        <NoteListItem key={note._id} note={note} history={props.history}/> 
-      ))}
-    </div>
-  );
+export class NoteList extends React.Component {
+  componentDidMount() {
+    Session.set('selectedNoteId', this.props.match.params.id);
+  }
+
+  render() {
+    return (
+      <div>
+        <NoteListHeader />
+        {this.props.notes.length ? undefined : <NoteListEmptyItem />}
+        {this.props.notes.map(note => (
+          <NoteListItem key={note._id} note={note} history={this.props.history}/> 
+        ))}
+      </div>
+    );
+  }
 }
 
 NoteList.propTypes = {
   notes: PropTypes.array.isRequired,
 };
 
+const NoteListWithRouter = withRouter(NoteList);
+
 export default withTracker(props => {
+  const selectedNoteId = Session.get('selectedNoteId');
   Meteor.subscribe('notes');
 
   return {
-    notes: Notes.find().fetch(),
+    notes: Notes.find().fetch().map(note => {
+      return {
+        ...note,
+        selected: note._id === selectedNoteId,
+      };
+    }),
   };
-})(NoteList);
+})(NoteListWithRouter); 

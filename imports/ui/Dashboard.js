@@ -12,7 +12,7 @@ const Dashboard = props => {
     <Private redirect="/">
       <TitleBar title="Dashboard" /> 
       <Container className="page-content">
-        <NoteList history={props.history}/>
+        <NoteList />
       </Container>
     </Private>
   );
