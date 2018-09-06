@@ -8,21 +8,8 @@ import sinon from 'sinon';
 import 'should-sinon';
 
 import { NoteList } from './../../imports/ui/NoteList';
+import { notes } from './../fixtures/fixtures';
 
-
-const notes = [
-  {
-    _id: 'Note1_id',
-    title: 'Note 1',
-    body: '',
-    updatedAt: 0, 
-  }, {
-    _id: 'Note2_id',
-    title: '',
-    body: 'Body 2',
-    updatedAt: 0,
-  }
-];
 
 if (Meteor.isClient) {
 
