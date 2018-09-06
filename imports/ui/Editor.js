@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, Button } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
 import { Notes } from './../api/notes';
 
@@ -41,13 +42,19 @@ export class Editor extends React.Component {
     Meteor.call('notes.update', this.props.note._id, {title}); 
   }
 
+  handelDeleteNote() {
+    Meteor.call('notes.remove', this.props.note._id);
+    Session.set('selectedNoteId', undefined);
+    this.props.history.push('/dashboard');
+  }
+
   render() {
     if (this.props.note) {
       return (
         <div>
           <Input value={this.state.title} placeholder="Untitled" onChange={this.handleTitleChange.bind(this)} />
           <Input type="textarea" value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)} />
-          <Button color="danger">Delete Note</Button>
+          <Button color="danger" onClick={this.handelDeleteNote.bind(this)}>Delete Note</Button>
         </div>
       );
     } else {
@@ -72,4 +79,4 @@ export default withTracker(props => {
     selectedNoteId, 
     note: Notes.findOne(selectedNoteId),
   };
-})(Editor);
+})(withRouter(Editor));
