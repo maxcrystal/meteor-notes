@@ -12,6 +12,7 @@
   border-radius: 0;
   font-weight: $font-weight-light;
   resize: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .editor__message {

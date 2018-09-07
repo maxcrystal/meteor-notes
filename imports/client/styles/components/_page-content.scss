@@ -8,6 +8,8 @@
 .page-content__sidebar {
   width: $page-content-sidebar-width;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
 }
 
 .page-content__main {
