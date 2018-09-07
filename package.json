@@ -14,8 +14,8 @@
     "meteor-node-stubs": "^0.4.1",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-router-dom": "^4.3.1",
     "reactstrap": "^6.4.0",
     "simpl-schema": "^1.5.3"
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.4.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "should": "^13.2.3",
     "should-sinon": "0.0.6",
     "sinon": "^6.2.0"
