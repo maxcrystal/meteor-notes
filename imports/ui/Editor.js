@@ -3,7 +3,7 @@ import { Session } from 'meteor/session';
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Button } from 'reactstrap';
+import { Container, Input, Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
 import { Notes } from './../api/notes';
@@ -52,17 +52,21 @@ export class Editor extends React.Component {
   render() {
     if (this.props.note) {
       return (
-        <div>
-          <Input ref="title" innerRef="input" value={this.state.title} placeholder="Untitled" onChange={this.handleTitleChange.bind(this)} />
-          <Input type="textarea" value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)} />
-          <Button color="danger" onClick={this.handelDeleteNote.bind(this)}>Delete Note</Button>
-        </div>
+        <Container className="page-content__main border rounded pb-3 d-flex flex-column align-items-stretch" style={{height:'100%'}}>
+          <Input className="editor__title" ref="title" innerRef="input" value={this.state.title} placeholder="Untitled" onChange={this.handleTitleChange.bind(this)} />
+          <Input className="editor__body flex-grow-1" type="textarea" value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)} />
+          <div>
+            <Button className="mt-3" color="danger" onClick={this.handelDeleteNote.bind(this)}>Delete Note</Button>
+          </div>
+        </Container>
       );
     } else {
       return (
-        <p>
-          {this.props.selectedNoteId ? 'Note not found' : 'Pick a note to get started'}
-        </p>
+        <Container className="page-content__main border rounded pb-3 d-flex flex-column align-items-stretch" style={{height:'100%'}}>
+          <p className="editor__message">
+            {this.props.selectedNoteId ? 'Note not found' : 'Pick a note to get started'}
+          </p>
+        </Container>
       );
     }
   }

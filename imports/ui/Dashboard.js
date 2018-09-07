@@ -12,12 +12,8 @@ const Dashboard = props => {
     <Private redirect="/">
       <TitleBar title="Dashboard" /> 
       <Container className="page-content d-flex">
-        <Container className="page-content__sidebar border rounded mr-2">
-          <NoteList />
-        </Container>
-        <Container className="page-content__main border rounded">
-          <Editor />
-        </Container>  
+        <NoteList />
+        <Editor />
       </Container>
     </Private>
   );

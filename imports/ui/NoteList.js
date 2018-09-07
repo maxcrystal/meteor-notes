@@ -4,6 +4,7 @@ import { Session } from 'meteor/session';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
 import { Notes } from './../api/notes';
 import NoteListHeader from './NoteListHeader';
@@ -18,13 +19,13 @@ export class NoteList extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container className="page-content__sidebar border rounded mr-3">
         <NoteListHeader />
         {this.props.notes.length ? undefined : <NoteListEmptyItem />}
         {this.props.notes.map(note => (
           <NoteListItem key={note._id} note={note} history={this.props.history}/> 
         ))}
-      </div>
+      </Container>
     );
   }
 }

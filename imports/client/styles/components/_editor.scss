@@ -1,0 +1,27 @@
+.editor__title {
+  border: none;
+  border-bottom: 2px solid $border-color;
+  border-radius: 0;
+  margin-top: 1rem;
+  font-size: $font-size-lg;
+  outline: none;
+}
+
+// .editor_title:focus {
+//   border: none;
+//   border-bottom: 2px solid $primary;
+// }
+
+.editor__body {
+  margin-top: 1rem;
+  border-color: $gray-100;
+  border-radius: 0;
+  font-weight: $font-weight-light;
+  resize: none;
+}
+
+.editor__message {
+  text-align: center;
+  margin: 6rem;
+  font-style: italic;
+}
