@@ -9,12 +9,14 @@ import { Button } from 'reactstrap';
 
 export const NoteListHeader = props => {
   return (
-    <Button color="primary" onClick={() => props.meteorCall('notes.insert', (err, res) => {
-      if (res) {
-        props.Session.set('selectedNoteId', res);
-        props.history.push(`/dashboard/${res}`);
-      }
-    })}>Create Note</Button>
+    <div className="d-flex flex-column mt-3 px-3"> 
+      <Button color="primary" onClick={() => props.meteorCall('notes.insert', (err, res) => {
+        if (res) {
+          props.Session.set('selectedNoteId', res);
+          props.history.push(`/dashboard/${res}`);
+        }
+      })}>Create Note</Button>
+      </div>
   );
 }
 

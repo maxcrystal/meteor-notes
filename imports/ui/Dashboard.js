@@ -10,7 +10,7 @@ import Editor from './Editor';
 const Dashboard = props => {
   return (
     <Private redirect="/">
-      <TitleBar title="Dashboard" /> 
+      <TitleBar title="Notes" /> 
       <Container className="page-content d-flex">
         <NoteList />
         <Editor />

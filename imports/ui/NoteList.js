@@ -19,12 +19,14 @@ export class NoteList extends React.Component {
 
   render() {
     return (
-      <Container className="page-content__sidebar border rounded mr-3">
+      <Container className="page-content__sidebar border rounded p-0 mr-3">
         <NoteListHeader />
-        {this.props.notes.length ? undefined : <NoteListEmptyItem />}
-        {this.props.notes.map(note => (
-          <NoteListItem key={note._id} note={note} history={this.props.history}/> 
-        ))}
+          <div className="mt-3">
+          {this.props.notes.length ? undefined : <NoteListEmptyItem />}
+          {this.props.notes.map(note => (
+            <NoteListItem key={note._id} note={note} history={this.props.history}/> 
+          ))}
+          </div>
       </Container>
     );
   }
