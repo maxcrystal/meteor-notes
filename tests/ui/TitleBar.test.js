@@ -15,7 +15,7 @@ if (Meteor.isClient) {
   describe('TitleBar', function() {
     it('should set button text to logout', function() {
       const wrapper = mount(<TitleBar title="Title" handleLogout={() => {}} />);
-      wrapper.find('button').text().should.eql('Logout');
+      wrapper.find('button.title-bar__link').text().should.eql('Logout');
     });
 
     it('should use title prop as bs4 brand', function() {
@@ -28,7 +28,7 @@ if (Meteor.isClient) {
       const spy = sinon.spy();
       const wrapper = mount(<TitleBar title="Title" handleLogout={spy} />);
 
-      wrapper.find('button').simulate('click');
+      wrapper.find('button.title-bar__link').simulate('click');
 
       spy.should.be.called();
     });
