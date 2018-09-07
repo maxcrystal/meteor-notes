@@ -6,7 +6,7 @@ export default (props) => {
 
   return (
     <div className="boxed-view">
-      <Jumbotron>
+      <Jumbotron className="shadow-sm">
         {props.children}
       </Jumbotron>
     </div>

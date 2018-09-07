@@ -1,5 +1,15 @@
 .page-content {
   max-width: $page-width;
+  height: $page-content-height;
   margin: 0 auto;
   padding: $space;
+}
+
+.page-content__sidebar {
+  width: $page-content-sidebar-width;
+  overflow-y: scroll;
+}
+
+.page-content__main {
+  width: $page-content-main-width;
 }

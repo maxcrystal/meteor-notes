@@ -10,7 +10,7 @@ import './../imports/startup/simpl-schema-config.js';
 
 Tracker.autorun(() => {
   const selectedNoteId = Session.get('selectedNoteId');
-  console.log(selectedNoteId);
+  // console.log(selectedNoteId);
 });
 
 Meteor.startup(() => {
