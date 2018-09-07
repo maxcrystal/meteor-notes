@@ -43,7 +43,7 @@ export class Signup extends React.Component {
       return (
         <BoxedView className="shadow">
           <h2>Join</h2>
-          {this.state.error ? <Alert color="danger">{this.state.error}</Alert> : undefined}
+          <Alert onClick={() => this.setState({error: ''})} isOpen={this.state.error} className="fixed-top m-1" color="danger">{this.state.error}</Alert>
           <Form onSubmit={this.onSubmit.bind(this)}>
             <FormGroup>
               <Input className="boxed-view__item" type="email" name="email" ref="email" innerRef="input" placeholder="Email" autoComplete="email"/>
