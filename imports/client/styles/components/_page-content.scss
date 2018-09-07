@@ -8,8 +8,16 @@
 .page-content__sidebar {
   width: $page-content-sidebar-width;
   overflow-y: scroll;
+
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
 }
 
 .page-content__main {
   width: $page-content-main-width;
+  
+  @include media-breakpoint-down(sm) {
+    border: 0px solid transparent !important;
+  }
 }
