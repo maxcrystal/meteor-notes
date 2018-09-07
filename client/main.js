@@ -10,10 +10,17 @@ import './../imports/startup/simpl-schema-config.js';
 
 Tracker.autorun(() => {
   const selectedNoteId = Session.get('selectedNoteId');
+  Session.set('isNavOpen', false);
   // console.log(selectedNoteId);
+});
+
+Tracker.autorun(() => {
+  const isNavOpen = Session.get('isNavOpen');
+  document.body.classList.toggle('is-nav-open', isNavOpen);
 });
 
 Meteor.startup(() => {
   Session.set('selectedNoteId', undefined);
+  Session.set('isNavOpen', false);
   ReactDOM.render(<Routs />, document.getElementById('app'));
 });
