@@ -37,11 +37,13 @@ NoteList.propTypes = {
 };
 
 export default withTracker(props => {
-  const selectedNoteId = Session.get('selectedNoteId');
+  const selectedNoteId = Session.get('selectedNoteId') || '.*';
+  const searchString = Session.get('searchString');
+
   Meteor.subscribe('notes');
 
   return {
-    notes: db.notes.find({}, {sort: {updatedAt: -1}}).fetch().map(note => {
+    notes: db.notes.find({title: {$regex: searchString, $options: 'i'}}, {sort: {updatedAt: -1}}).fetch().map(note => {
       return {
         ...note,
         selected: note._id === selectedNoteId,
