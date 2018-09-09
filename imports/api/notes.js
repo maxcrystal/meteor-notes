@@ -10,7 +10,7 @@ db.notes.setSchema(yup.object({
   body: yup.string(),
   userId: yup.string(),
   updatedAt: yup.date().default(() => new Date()),
-}));
+}).noUnknown(true));
 
 if (Meteor.isServer) {
   Meteor.publish('notes', function () {
@@ -25,7 +25,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    db.notes.insert({
+    return db.notes.insert({  // return note id
       title: '',
       body: '',
       userId: this.userId,

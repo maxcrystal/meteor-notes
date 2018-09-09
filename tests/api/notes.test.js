@@ -1,11 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import should from 'should';
 
-import { Notes } from './../../imports/api/notes';
+import db from './../../imports/api/db';
+import './../../imports/api/notes';
 
 
 if (Meteor.isServer) {
-  describe('notes', function() {
+  describe('db.notes', function() {
 
     const noteOne = {
       _id: 'testNoteId1',
@@ -23,49 +24,44 @@ if (Meteor.isServer) {
     };
 
     beforeEach(function() {
-      Notes.remove({});
-      Notes.insert(noteOne);
-      Notes.insert(noteTwo);
+      db.notes.remove({});
+      db.notes.insert(noteOne);
+      db.notes.insert(noteTwo);
     });
 
     afterEach(function() {
-      Notes.remove({});
+      db.notes.remove({});
     });
 
-    it('should insert new note', function(done) {
+    it('should insert new note', function() {
       const _id = Meteor.server.method_handlers['notes.insert'].apply({userId: noteOne.userId})
 
-      Notes.findOne({_id, userId: noteOne.userId}).should.be.ok;
-      done();
+      db.notes.findOne({_id, userId: noteOne.userId}).should.be.ok;
     });
 
-    it('should not insert note if not authenticated', function(done) {
+    it('should not insert note if not authenticated', function() {
       (() => {
         Meteor.server.method_handlers['notes.insert']();
       }).should.throw();
-      done();
     });
 
-    it('should remove note', function(done) {
+    it('should remove note', function() {
       Meteor.server.method_handlers['notes.remove'].apply({userId: noteOne.userId}, [noteOne._id]);  // the second arg is a list of args to pass to function
-      (Notes.findOne({_id: noteOne.noteId}) === null).should.be.ok;
-      done(); 
+      (db.notes.findOne({_id: noteOne.noteId}) === null).should.be.ok;
     });
 
-    it('should not remove if not authenticated', function(done) {
+    it('should not remove if not authenticated', function() {
       (() => {
         Meteor.server.method_handlers['notes.remove'].apply({}, [noteOne._id]);  // the second arg is a list of args to pass to function
       }).should.throw();
-      done(); 
     });
 
-    it('should not remove note if invalid id', function(done) {
+    it('should not remove note if invalid id', function() {
       Meteor.server.method_handlers['notes.remove'].apply({userId: noteOne.userId}, [`invalid ${noteOne._id}`]);  // the second arg is a list of args to pass to function
-      Notes.findOne({_id: noteOne._id}).should.be.ok;
-      done(); 
+      db.notes.findOne({_id: noteOne._id}).should.be.ok;
     });
 
-    it('should update note', function(done) {
+    it('should update note', function() {
       const title = 'New Title';
       Meteor.server.method_handlers['notes.update'].apply({
         userId: noteOne.userId,
@@ -73,28 +69,25 @@ if (Meteor.isServer) {
         noteOne._id,
         {title},
       ]);
-      const note = Notes.findOne(noteOne._id);
+      const note = db.notes.findOne(noteOne._id);
       note.updatedAt.should.be.above(0);
       note.should.containDeep({
         title,
         body: noteOne.body,
       });
-      done();
     });
 
-    it('should throw if extra paramters are set to be updated', function(done) {
-      (() => {
-        Meteor.server.method_handlers['notes.update'].apply({
-          userId: noteOne.userId,
-        }, [
-          noteOne._id,
-          {text: "New body"},
-        ]);
-      }).should.throw();
-      done();
+    it('should ignore extra paramters when try to set', function () {
+      Meteor.server.method_handlers['notes.update'].apply({
+        userId: noteOne.userId,
+      }, [
+        noteOne._id,
+        {text: "New body"},
+      ]);
+      db.notes.findOne({_id: noteOne._id}).should.not.have.keys('text');
     });
 
-    it('should not update note if user was not creator', function(done) {
+    it('should not update note if user was not creator', function() {
       const title = 'New Title';
       Meteor.server.method_handlers['notes.update'].apply({
         userId: `invalid ${noteOne.userId}`,
@@ -102,22 +95,19 @@ if (Meteor.isServer) {
         noteOne._id,
         {title},
       ]);
-      const note = Notes.findOne(noteOne._id);
+      const note = db.notes.findOne(noteOne._id);
       note.should.containEql(noteOne);
-      done();
     });
 
-    it('should not update if not authenticated', function(done) {
+    it('should not update if not authenticated', function() {
       (() => {
         Meteor.server.method_handlers['notes.update'].apply({}, [noteOne._id]);  // the second arg is a list of args to pass to function
       }).should.throw();
-      done(); 
     });
 
-    it('should not update note if invalid id', function(done) {
+    it('should not update note if invalid id', function() {
       Meteor.server.method_handlers['notes.update'].apply({userId: noteOne.userId}, [`invalid ${noteOne._id}`]);  // the second arg is a list of args to pass to function
-      Notes.findOne({_id: noteOne._id}).should.be.ok;
-      done(); 
+      db.notes.findOne({_id: noteOne._id}).should.be.ok;
     });
 
     it('should return user notes', function() {

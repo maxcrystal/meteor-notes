@@ -13,10 +13,10 @@ db.addCollection = (name, options?) => {
   }
 };
 
-db.validate = (value, schema) => {
+db.validate = (value, schema, options?) => {
   if (typeof(value) === 'object' && typeof(schema) === 'object') {
     try {
-      return schema.validateSync(value)
+      return schema.validateSync(value, options)
     } catch (err) {
       throw new Meteor.Error('400', err.message, err.details)
     }
@@ -39,8 +39,8 @@ class Collection extends Mongo.Collection {
     }
   }
 
-  validate(value) {
-    return db.validate(value, this.schema);
+  validate(value, options?) {
+    return db.validate(value, this.schema, options);
   }
 }
 
