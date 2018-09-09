@@ -44,7 +44,7 @@ export class Signup extends React.Component {
         <BoxedView className="shadow">
           <h2>Join</h2>
           <Alert onClick={() => this.setState({error: ''})} isOpen={!!this.state.error} className="fixed-top m-1" color="danger">{this.state.error}</Alert>
-          <Form onSubmit={this.onSubmit.bind(this)}>
+          <Form onSubmit={this.onSubmit.bind(this)} noValidate>
             <FormGroup>
               <Input className="boxed-view__item" type="email" name="email" ref="email" innerRef="input" placeholder="Email" autoComplete="email"/>
               <Input className="boxed-view__item" type="password" name="password" ref="password" innerRef="input" placeholder="Password" autoComplete="new_password"/>

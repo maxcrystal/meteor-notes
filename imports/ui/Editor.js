@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Container, Input, Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
-import { Notes } from './../api/notes';
+import db from './../api/db';
 
 
 export class Editor extends React.Component {
@@ -40,7 +40,7 @@ export class Editor extends React.Component {
   handleTitleChange(e) {
     const title = e.target.value;
     this.setState({title});
-    this.props.call('notes.update', this.props.note._id, {title}); 
+    this.props.call('notes.update', this.props.note._id, {title});
   }
 
   handelDeleteNote() {
@@ -76,14 +76,14 @@ Editor.propTypes = {
   selectedNoteId: PropTypes.string,
   note: PropTypes.object,
   call: PropTypes.func.isRequired,
-}
+};
 
 export default withTracker(props => {
   const selectedNoteId = Session.get('selectedNoteId');
 
   return {
-    selectedNoteId, 
-    note: Notes.findOne(selectedNoteId),
+    selectedNoteId,
+    note: db.notes.findOne(selectedNoteId),
     call: Meteor.call,
   };
 })(withRouter(Editor));

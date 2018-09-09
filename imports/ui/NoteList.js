@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import { Notes } from './../api/notes';
+import db from './../api/db';
 import NoteListHeader from './NoteListHeader';
 import NoteListItem from './NoteListItem';
 import NoteListEmptyItem from './NoteListEmptyItem';
@@ -24,7 +24,7 @@ export class NoteList extends React.Component {
           <div className="mt-3">
           {this.props.notes.length ? undefined : <NoteListEmptyItem />}
           {this.props.notes.map(note => (
-            <NoteListItem key={note._id} note={note} history={this.props.history}/> 
+            <NoteListItem key={note._id} note={note} history={this.props.history}/>
           ))}
           </div>
       </Container>
@@ -41,11 +41,11 @@ export default withTracker(props => {
   Meteor.subscribe('notes');
 
   return {
-    notes: Notes.find({}, {sort: {updatedAt: -1}}).fetch().map(note => {
+    notes: db.notes.find({}, {sort: {updatedAt: -1}}).fetch().map(note => {
       return {
         ...note,
         selected: note._id === selectedNoteId,
       };
     }),
   };
-})(withRouter(NoteList)); 
+})(withRouter(NoteList));

@@ -1,14 +1,20 @@
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
-import moment from 'moment';
+import {Meteor} from 'meteor/meteor';
+import yup from 'yup';
+
+import db from './db';
 
 
-export const Notes = new Mongo.Collection('notes');
+db.notes.setSchema(yup.object({
+  _id: yup.string().required(),
+  title: yup.string(),
+  body: yup.string(),
+  userId: yup.string(),
+  updatedAt: yup.date().default(() => new Date()),
+}));
 
 if (Meteor.isServer) {
-  Meteor.publish('notes', function() {
-    return Notes.find({userId: this.userId});
+  Meteor.publish('notes', function () {
+    return db.notes.find({userId: this.userId});
   });
 }
 
@@ -19,11 +25,11 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    return Notes.insert({
+    db.notes.insert({
       title: '',
       body: '',
       userId: this.userId,
-      updatedAt: moment().valueOf(),  // new Date().getTime(),
+      updatedAt: new Date(),  //moment().valueOf(),  // new Date().getTime(),
     });
   },
 
@@ -33,14 +39,9 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    new SimpleSchema({
-      noteId: {
-        type: String,
-        min: 1,
-      },
-    }).validate({noteId: _id});
+    db.notes.validate({_id});
 
-    Notes.remove({ _id, userId: this.userId });
+    db.notes.remove({_id, userId: this.userId});
   },
 
   'notes.update'(_id, update) {
@@ -49,33 +50,11 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    new SimpleSchema({
-      noteId: {
-        type: String,
-        min: 1,
-      },
-      title: {
-        type: String,
-        optional: true,
-      },
-      body: {
-        type: String,
-        optional: true,
-      }
-    }).validate({
-      noteId: _id,
-      ...update,
-    });
+    update = db.notes.validate({_id, ...update});  // default updateAt is assigned
 
-    Notes.update({
-        _id,
-        userId: this.userId,
-      }, {
-        $set: {
-          updatedAt: moment().valueOf(),
-          ...update,
-      }
-    });
+    db.notes.update(
+      {_id, userId: this.userId},
+      {$set: {...update}}
+    );
   }
-
 });

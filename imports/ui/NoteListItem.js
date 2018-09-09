@@ -1,7 +1,6 @@
-import { Session } from 'meteor/session'; 
+import { Session } from 'meteor/session';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import moment from 'moment';
