@@ -37,7 +37,7 @@ NoteList.propTypes = {
 };
 
 export default withTracker(props => {
-  const selectedNoteId = Session.get('selectedNoteId') || '.*';
+  const selectedNoteId = Session.get('selectedNoteId');
   const searchString = Session.get('searchString');
 
   Meteor.subscribe('notes');
