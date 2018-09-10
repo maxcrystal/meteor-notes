@@ -3,7 +3,7 @@ import { Session } from 'meteor/session';
 import { withTracker } from 'meteor/react-meteor-data';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Input, Button } from 'reactstrap';
+import { Container, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 
 import db from './../api/db';
@@ -15,6 +15,7 @@ export class Editor extends React.Component {
     this.state = {
       title: '',
       body: '',
+      modal: false,
     };
   }
 
@@ -43,10 +44,17 @@ export class Editor extends React.Component {
     this.props.call('notes.update', this.props.note._id, {title});
   }
 
-  handelDeleteNote() {
+  handleDeleteNote() {
     this.props.call('notes.remove', this.props.note._id);
     Session.set('selectedNoteId', undefined);
     this.props.history.push('/dashboard');
+    this.handleToggleModal();
+  }
+
+  handleToggleModal() {
+    this.setState({
+      modal: !this.state.modal,
+    })
   }
 
   render() {
@@ -56,7 +64,15 @@ export class Editor extends React.Component {
           <Input className="editor__title" ref="title" innerRef="input" value={this.state.title} placeholder="Untitled" onChange={this.handleTitleChange.bind(this)} />
           <Input className="editor__body flex-grow-1" type="textarea" value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)} />
           <div>
-            <Button className="mt-3" color="danger" onClick={this.handelDeleteNote.bind(this)}>Delete Note</Button>
+            <Button className="mt-3" outline color="secondary" onClick={this.handleToggleModal.bind(this)}>Delete Note</Button>
+            <Modal isOpen={this.state.modal} toggle={this.handleToggleModal.bind(this)}>
+              <ModalHeader>Delete "{this.state.title}"?</ModalHeader>
+              <ModalBody>Are you sure you want to delete the note? This action can not be undone.</ModalBody>
+              <ModalFooter>
+                <Button color="danger" onClick={this.handleDeleteNote.bind(this)}>Delete</Button>
+                <Button color="secondary" onClick={this.handleToggleModal.bind(this)}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
           </div>
         </Container>
       );

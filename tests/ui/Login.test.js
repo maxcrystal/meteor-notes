@@ -22,7 +22,7 @@ if (Meteor.isClient) {
       wrapper.find(Login).instance().setState({error});
       wrapper.update();
       wrapper.find('Alert').text().should.be.eql(error);
-    })
+    });
 
     it('should call loginWithPassword with the form data', function() {
       const email = 'test@test.com';
@@ -52,7 +52,7 @@ if (Meteor.isClient) {
 
       spy.args[0][2]();
       wrapper.find(Login).instance().state.error.should.be.eql('');
-    }); 
+    });
 
   });
 }
