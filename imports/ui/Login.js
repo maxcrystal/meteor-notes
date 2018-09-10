@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
+import yup from 'yup';
 
 import BoxedView from './BoxedView.js';
 
@@ -23,16 +24,25 @@ export class Login extends React.Component {
     let email = this.refs.email.refs.input.value.trim();
     let password = this.refs.password.refs.input.value.trim();
 
-    this.props.loginWithPassword({email}, password, error => {
-      if (!error) {
-        this.setState({
-          error: '',
-          loggedIn: !!Meteor.userId(),
+    yup.object({
+      email: yup.string().email().required().trim().label('Email'),
+      password: yup.string().required().trim().label('Password'),
+    }).validate({email, password})
+      .then(({email, password}) => {
+        this.props.loginWithPassword({email}, password, error => {
+          if (!error) {
+            this.setState({
+              error: '',
+              loggedIn: !!Meteor.userId(),
+            });
+          } else {
+            this.setState({error: error.reason});
+          }
         });
-      } else {
-        this.setState({error: error.reason});
-      }
-    });
+      })
+      .catch(error => {
+        this.setState({error: error.message});
+      })
   }
 
   render() {

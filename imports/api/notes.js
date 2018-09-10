@@ -4,6 +4,7 @@ import yup from 'yup';
 import db from './db';
 
 
+// Set collection schema
 db.notes.setSchema(yup.object({
   _id: yup.string().required(),
   title: yup.string(),
@@ -18,6 +19,7 @@ if (Meteor.isServer) {
   });
 }
 
+// Set client-side methods
 Meteor.methods({
   'notes.insert'() {
 

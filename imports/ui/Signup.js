@@ -7,6 +7,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Alert } from 'reactstrap';
 
 import BoxedView from './BoxedView.js';
+import yup from "yup";
 
 
 export class Signup extends React.Component {
@@ -23,20 +24,25 @@ export class Signup extends React.Component {
     let email = this.refs.email.refs.input.value.trim();
     let password = this.refs.password.refs.input.value.trim();
 
-    if (password.length < 9) {
-      this.setState({error: 'Password must be at least 9 characters long'});
-      return;
-    }
-
-    this.props.createUser({email, password}, error => {
-      if (!error) {
-        this.setState({
-          error: '',
-          loggedIn: !!Meteor.userId()});
-      } else {
-        this.setState({error: error.reason});
-      }
-    });
+    yup.object({
+      email: yup.string().email().required().trim().label('Email'),
+      password: yup.string().min(9).required().trim().label('Password'),
+    }).validate({email, password})
+      .then(({email, password}) => {
+        this.props.createUser({email, password}, error => {
+          if (!error) {
+            this.setState({
+              error: '',
+              loggedIn: !!Meteor.userId(),
+            });
+          } else {
+            this.setState({error: error.reason});
+          }
+        });
+      })
+      .catch(error => {
+        this.setState({error: error.message});
+      })
   }
   render() {
     if (!this.state.loggedIn) {

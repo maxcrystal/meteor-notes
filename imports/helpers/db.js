@@ -5,7 +5,7 @@ import {Mongo} from 'meteor/mongo';
 const db = {};
 
 db.addCollection = (name, options?) => {
-  if (typeof(name) === 'string' && name.length > 0 && ['addCollection', 'validate'].indexOf(name) === -1) {
+  if (typeof(name) === 'string' && name.length > 0 && Object.keys(this).indexOf(name) === -1) {
     db[name] = new Collection(name, options);
     return db[name];
   } else {
@@ -37,6 +37,10 @@ class Collection extends Mongo.Collection {
     } else {
       throw new Error('schema should be an object');
     }
+  }
+
+  schema() {
+    return this.schema;
   }
 
   validate(value, options?) {
