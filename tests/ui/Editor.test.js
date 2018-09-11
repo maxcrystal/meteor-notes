@@ -37,8 +37,8 @@ if (Meteor.isClient) {
 
     it('should remove message', function() {
       const wrapper = mount(<Editor history={history} call={call} note={notes[0]} selectedNoteId={notes[0]._id}/>);
-
-      wrapper.find('button').simulate('click');
+      wrapper.setState({modal: true});
+      wrapper.find('button#delete-note').simulate('click');
       call.should.be.calledWith('notes.remove', notes[0]._id);
       history.push.should.be.calledWith('/dashboard');
     });

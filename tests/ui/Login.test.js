@@ -8,7 +8,8 @@ import should from 'should';
 import sinon from 'sinon';
 import 'should-sinon';
 
-import { Login }from './../../imports/ui/Login';
+import { user } from './../fixtures/fixtures';
+import { Login } from './../../imports/ui/Login';
 
 
 if (Meteor.isClient) {
@@ -24,34 +25,59 @@ if (Meteor.isClient) {
       wrapper.find('Alert').text().should.be.eql(error);
     });
 
-    it('should call loginWithPassword with the form data', function() {
-      const email = 'test@test.com';
-      const password = '1234567890';
-      const spy = sinon.spy();
+    it('should call loginWithPassword with the form data', function(done) {
+      const spy = sinon.spy((...args) => {
+        try {
+          args.should.containDeep([{email: user.email}, user.password]);
+        } catch (err) {
+          done(err);
+        }
+        done();
+      });
 
       const wrapper = mount(<BrowserRouter><Login loginWithPassword={spy} redirect="/" /></BrowserRouter>);
 
       const inputNodes = wrapper.find('input');
 
-      inputNodes.find({type: "email"}).instance().value = email;
-      inputNodes.find({type: "password"}).instance().value = password;
+      inputNodes.find({type: "email"}).instance().value = user.email;
+      inputNodes.find({type: "password"}).instance().value = user.password;
 
       wrapper.find('form').simulate('submit');
-      spy.should.be.calledWith({email}, password);
+
+      // spy.should.be.calledWith({email}, password);
+
     });
 
-    it('should set loginWithPassword callback errors', function() {
-      const spy = sinon.spy();
+    it('should set loginWithPassword callback errors', function(done) {
       const reason = 'fuck you, that\'s why';
+
+      const spy = sinon.spy((...args) => {
+        try {
+          args[2]({reason});
+          wrapper.find(Login).instance().state.error.should.be.eql(reason);
+
+          args[2]();
+          wrapper.find(Login).instance().state.error.should.be.eql('');
+        } catch (err) {
+          done(err)
+        }
+        done();
+      });
+
       const wrapper = mount(<BrowserRouter><Login loginWithPassword={spy} redirect="/" /></BrowserRouter>);
+
+      const inputNodes = wrapper.find('input');
+
+      inputNodes.find({type: "email"}).instance().value = user.email;
+      inputNodes.find({type: "password"}).instance().value = user.password;
 
       wrapper.find('form').simulate('submit');
 
-      spy.args[0][2]({reason});
-      wrapper.find(Login).instance().state.error.should.be.eql(reason);
-
-      spy.args[0][2]();
-      wrapper.find(Login).instance().state.error.should.be.eql('');
+      // spy.args[0][2]({reason});
+      // wrapper.find(Login).instance().state.error.should.be.eql(reason);
+      //
+      // spy.args[0][2]();
+      // wrapper.find(Login).instance().state.error.should.be.eql('');
     });
 
   });

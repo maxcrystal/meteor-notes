@@ -69,7 +69,7 @@ export class Editor extends React.Component {
               <ModalHeader>Delete "{this.state.title}"?</ModalHeader>
               <ModalBody>Are you sure you want to delete the note? This action can not be undone.</ModalBody>
               <ModalFooter>
-                <Button color="danger" onClick={this.handleDeleteNote.bind(this)}>Delete</Button>
+                <Button id="delete-note" color="danger" onClick={this.handleDeleteNote.bind(this)}>Delete</Button>
                 <Button color="secondary" onClick={this.handleToggleModal.bind(this)}>Cancel</Button>
               </ModalFooter>
             </Modal>
