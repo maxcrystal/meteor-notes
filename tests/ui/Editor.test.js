@@ -23,13 +23,13 @@ if (Meteor.isClient) {
       };
     });
 
-    it('should should render pick note message', function() {
+    it('should render pick note message', function() {
       const wrapper = mount(<Editor history={history} call={call} />);
 
       wrapper.find('p').text().should.be.eql('Pick a note to get started');
     });
 
-    it('should should render note not found message', function() {
+    it('should render note not found message', function() {
       const wrapper = mount(<Editor history={history} call={call} selectedNoteId={notes[0]._id}/>);
 
       wrapper.find('p').text().should.be.eql('Note not found');
