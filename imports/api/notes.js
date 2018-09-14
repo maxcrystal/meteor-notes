@@ -1,17 +1,7 @@
 import {Meteor} from 'meteor/meteor';
-import yup from 'yup';
 
 import db from './db';
 
-
-// Set collection schema
-db.notes.setSchema(yup.object({
-  _id: yup.string().required(),
-  title: yup.string(),
-  body: yup.string(),
-  userId: yup.string(),
-  updatedAt: yup.date().default(() => new Date()),
-}).noUnknown(true));
 
 if (Meteor.isServer) {
   Meteor.publish('notes', function () {
@@ -22,41 +12,44 @@ if (Meteor.isServer) {
 // Set client-side methods
 Meteor.methods({
   'notes.insert'() {
-
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    return db.notes.insert({  // return note id
-      title: '',
-      body: '',
-      userId: this.userId,
-      updatedAt: new Date(),  //moment().valueOf(),  // new Date().getTime(),
-    });
+    const doc = db.notes.validate({ userId: this.userId }, 'insert');
+    const noteId = db.notes.insert(doc);
+
+    return noteId;
   },
 
   'notes.remove'(_id) {
-
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    db.notes.validate({_id});
+    const doc = db.notes.validate(
+      {
+        _id,
+        userId: this.userId,
+      },
+      'remove',
+      {strict: true}
+    );
 
-    db.notes.remove({_id, userId: this.userId});
+    db.notes.remove(doc);
   },
 
   'notes.update'(_id, update) {
-
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    update = db.notes.validate({_id, ...update});  // default updateAt is assigned
-
-    db.notes.update(
+    const doc = db.notes.validate({_id, ...update}, 'update');
+    const updatedCount = db.notes.update(
       {_id, userId: this.userId},
-      {$set: {...update}}
+      {$set: {...doc}}
     );
+
+    return updatedCount;
   }
 });

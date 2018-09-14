@@ -4,9 +4,7 @@
   "scripts": {
     "start": "meteor run",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
-    "test": "meteor test --driver-package cultofcoders:mocha",
-    "_pretest": "npm run lint --silent",
-    "_lint": "eslint ."
+    "test": "meteor test --driver-package cultofcoders:mocha"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
