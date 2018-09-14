@@ -67,7 +67,7 @@
 
 .card-header {
   padding: $card-spacer-y $card-spacer-x;
-  margin-bottom: 0; // Removes the default margin-bottom of <hN>
+  margin-bottom: 0; // Removes the base margin-bottom of <hN>
   background-color: $card-cap-bg;
   border-bottom: $card-border-width solid $card-border-color;
 
@@ -157,7 +157,7 @@
       flex: 1 0 0%;
       flex-direction: column;
       margin-right: $card-deck-margin;
-      margin-bottom: 0; // Override the default
+      margin-bottom: 0; // Override the base
       margin-left: $card-deck-margin;
     }
   }

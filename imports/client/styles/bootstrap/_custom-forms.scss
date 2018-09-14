@@ -157,7 +157,7 @@
 
 // Select
 //
-// Replaces the browser default select with a custom one, mostly pulled from
+// Replaces the browser base select with a custom one, mostly pulled from
 // https://primer.github.io/.
 //
 
@@ -191,7 +191,7 @@
 
     &::-ms-value {
       // For visual consistency with other platforms/browsers,
-      // suppress the default white text on blue background highlight given to
+      // suppress the base white text on blue background highlight given to
       // the selected option text when the (still closed) <select> receives focus
       // in IE and (under certain conditions) Edge.
       // See https://github.com/twbs/bootstrap/issues/19398.
@@ -212,7 +212,7 @@
     background-color: $custom-select-disabled-bg;
   }
 
-  // Hides the default caret in IE11
+  // Hides the base caret in IE11
   &::-ms-expand {
     opacity: 0;
   }

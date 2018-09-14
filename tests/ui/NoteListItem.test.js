@@ -33,7 +33,7 @@ if (Meteor.isClient) {
       wrapper.find('p').text().should.be.eql(moment(notes[0].updatedAt).format('D.MM.Y'));
     });
 
-    it('should render default title if not provided', function() {
+    it('should render base title if not provided', function() {
       const wrapper = mount(<NoteListItem note={notes[1]} Session={Session}/>);
 
       wrapper.find('h5').text().should.be.eql('Untitled');

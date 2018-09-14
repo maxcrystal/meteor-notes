@@ -1,19 +1,57 @@
-import {Mongo} from 'meteor/mongo';
-
-import Schema from './schema';
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import yup from 'yup';
 
 
 class Collection extends Mongo.Collection {
-  constructor(name, options?) {
+  constructor(name, fields?, options?) {
     super(name, options);
-    this.schema = new Schema();
+    this.baseSchema = fields ? yup.object(fields) : undefined;
+    this.fields = this.baseSchema.fields;
   }
 
-  validate(value, schema='default', options?) {
-    // todo allow pass yup schema along with strings
-    const validatedValue = this.schema.validateSync(value, schema, options);
+  validateSync(value, options={}) {
+    let { schema, ...rest } = options;
+    schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
+    try {
+      const validatedValue = schema.validateSync(value, rest);
+      return validatedValue;
+    } catch (err) {
+      throw new Meteor.Error('400', err.message, err.errors)
+    }
+  }
 
-    return validatedValue;
+  isValidSync(value, options={}) {
+    let { schema, ...rest } = options;
+    schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
+    try {
+      const valid = schema.isValidSync(value, rest);
+      return valid;
+    } catch (err) {
+      throw new Meteor.Error('400', err.message, err.errors)
+    }
+  }
+
+  async validate(value, options={}) {
+    let {schema, ...rest} = options;
+    schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
+    try {
+      const validatedValue = await schema.validateSync(value, rest);
+      return validatedValue;
+    } catch (err) {
+      throw new Meteor.Error('400', err.message, err.errors)
+    }
+  }
+
+  async isValidSync(value, options={}) {
+    let { schema, ...rest } = options;
+    schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
+    try {
+      const valid = await schema.isValidSync(value, rest);
+      return valid;
+    } catch (err) {
+      throw new Meteor.Error('400', err.message, err.errors)
+    }
   }
 }
 

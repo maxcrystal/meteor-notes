@@ -21,7 +21,7 @@
     // Manually use the if/else instead of the mixin to account for iOS override
     border-radius: $input-border-radius;
   } @else {
-    // Otherwise undo the iOS default
+    // Otherwise undo the iOS base
     border-radius: 0;
   }
 
@@ -40,7 +40,7 @@
   // Placeholder
   &::placeholder {
     color: $input-placeholder-color;
-    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    // Override Firefox's unusual base opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
   }
 
@@ -59,7 +59,7 @@
 
 select.form-control {
   &:focus::-ms-value {
-    // Suppress the nested default white text on blue background highlight given to
+    // Suppress the nested base white text on blue background highlight given to
     // the selected option text when the (still closed) <select> receives focus
     // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
     // match the appearance of the native widget.
@@ -86,8 +86,8 @@ select.form-control {
 .col-form-label {
   padding-top: calc(#{$input-padding-y} + #{$input-border-width});
   padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
-  margin-bottom: 0; // Override the `<label>/<legend>` default
-  font-size: inherit; // Override the `<legend>` default
+  margin-bottom: 0; // Override the `<label>/<legend>` base
+  font-size: inherit; // Override the `<legend>` base
   line-height: $input-line-height;
 }
 
@@ -116,7 +116,7 @@ select.form-control {
   width: 100%;
   padding-top: $input-padding-y;
   padding-bottom: $input-padding-y;
-  margin-bottom: 0; // match inputs if this class comes on inputs with default margins
+  margin-bottom: 0; // match inputs if this class comes on inputs with base margins
   line-height: $input-line-height;
   color: $input-plaintext-color;
   background-color: transparent;
@@ -221,7 +221,7 @@ textarea.form-control {
 }
 
 .form-check-label {
-  margin-bottom: 0; // Override default `<label>` bottom margin
+  margin-bottom: 0; // Override base `<label>` bottom margin
 }
 
 .form-check-inline {
@@ -257,7 +257,7 @@ textarea.form-control {
 // viewports reach <768px.
 //
 // Requires wrapping inputs and labels with `.form-group` for proper display of
-// default HTML form controls and our custom form controls (e.g., input groups).
+// base HTML form controls and our custom form controls (e.g., input groups).
 
 .form-inline {
   display: flex;
@@ -306,7 +306,7 @@ textarea.form-control {
       width: auto;
     }
 
-    // Remove default margin on radios/checkboxes that were used for stacking, and
+    // Remove base margin on radios/checkboxes that were used for stacking, and
     // then undo the floating of radios and checkboxes to match.
     .form-check {
       display: flex;

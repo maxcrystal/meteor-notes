@@ -21,7 +21,7 @@ $gray-900: #212529 !default;
 $black:    #000 !default;
 
 $grays: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
+// stylelint-disable-next-line scss/dollar-variable-base
 $grays: map-merge(
   (
     "100": $gray-100,
@@ -50,7 +50,7 @@ $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
 $colors: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
+// stylelint-disable-next-line scss/dollar-variable-base
 $colors: map-merge(
   (
     "blue":       $blue,
@@ -80,7 +80,7 @@ $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
 
 $theme-colors: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
+// stylelint-disable-next-line scss/dollar-variable-base
 $theme-colors: map-merge(
   (
     "primary":    $primary,
@@ -121,13 +121,13 @@ $enable-print-styles:       true !default;
 
 // Spacing
 //
-// Control the default styling of most Bootstrap elements by modifying these
+// Control the base styling of most Bootstrap elements by modifying these
 // variables. Mostly focused on spacing.
 // You can add more entries to the $spacers map, should you need more variation.
 
 $spacer: 1rem !default;
 $spacers: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
+// stylelint-disable-next-line scss/dollar-variable-base
 $spacers: map-merge(
   (
     0: 0,
@@ -142,7 +142,7 @@ $spacers: map-merge(
 
 // This variable affects the `.h-*` and `.w-*` classes.
 $sizes: () !default;
-// stylelint-disable-next-line scss/dollar-variable-default
+// stylelint-disable-next-line scss/dollar-variable-base
 $sizes: map-merge(
   (
     25: 25%,
@@ -253,7 +253,7 @@ $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberati
 $font-family-base:            $font-family-sans-serif !default;
 // stylelint-enable value-keyword-case
 
-$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+$font-size-base:              1rem !default; // Assumes the browser base, typically `16px`
 $font-size-lg:                ($font-size-base * 1.25) !default;
 $font-size-sm:                ($font-size-base * .875) !default;
 

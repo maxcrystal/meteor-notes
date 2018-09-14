@@ -62,7 +62,7 @@
 
 // Sizing
 //
-// Remix the default button sizing classes into new ones for easier manipulation.
+// Remix the base button sizing classes into new ones for easier manipulation.
 
 .btn-group-sm > .btn { @extend .btn-sm; }
 .btn-group-lg > .btn { @extend .btn-lg; }
@@ -160,7 +160,7 @@
 .btn-group-toggle {
   > .btn,
   > .btn-group > .btn {
-    margin-bottom: 0; // Override default `<label>` value
+    margin-bottom: 0; // Override base `<label>` value
 
     input[type="radio"],
     input[type="checkbox"] {

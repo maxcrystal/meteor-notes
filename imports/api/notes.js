@@ -16,7 +16,13 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    const doc = db.notes.validate({ userId: this.userId }, 'insert');
+    const options = {
+      schema: {
+        title: db.notes.fields.title.default('New Title'),
+        body: db.notes.fields.body.default(''),
+      }
+    };
+    const doc = db.notes.validateSync({ userId: this.userId }, options);
     const noteId = db.notes.insert(doc);
 
     return noteId;
@@ -27,14 +33,11 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    const doc = db.notes.validate(
-      {
-        _id,
-        userId: this.userId,
-      },
-      'remove',
-      {strict: true}
-    );
+    const options = {
+      schema : { _id: db.notes.fields._id.required() },
+      strict: true,
+    };
+    const doc = db.notes.validateSync({ _id, userId: this.userId }, options);
 
     db.notes.remove(doc);
   },
@@ -43,11 +46,10 @@ Meteor.methods({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-
-    const doc = db.notes.validate({_id, ...update}, 'update');
+    const doc = db.notes.validateSync({ _id, ...update });
     const updatedCount = db.notes.update(
-      {_id, userId: this.userId},
-      {$set: {...doc}}
+      { _id, userId: this.userId },
+      { $set: {...doc} }
     );
 
     return updatedCount;
