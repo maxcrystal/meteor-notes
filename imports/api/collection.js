@@ -43,7 +43,7 @@ class Collection extends Mongo.Collection {
     }
   }
 
-  async isValidSync(value, options={ stripUnknown: true }) {
+  async isValid(value, options={ stripUnknown: true }) {
     let { schema, ...rest } = options;
     schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
     try {
