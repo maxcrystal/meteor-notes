@@ -10,7 +10,7 @@ class Collection extends Mongo.Collection {
     this.fields = this.baseSchema.fields;
   }
 
-  validateSync(value, options={}) {
+  validateSync(value, options={ stripUnknown: true }) {
     let { schema, ...rest } = options;
     schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
     try {
@@ -21,7 +21,7 @@ class Collection extends Mongo.Collection {
     }
   }
 
-  isValidSync(value, options={}) {
+  isValidSync(value, options={ stripUnknown: true }) {
     let { schema, ...rest } = options;
     schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
     try {
@@ -32,8 +32,8 @@ class Collection extends Mongo.Collection {
     }
   }
 
-  async validate(value, options={}) {
-    let {schema, ...rest} = options;
+  async validate(value, options={ stripUnknown: true }) {
+    let { schema, ...rest } = options;
     schema = schema ? this.baseSchema.shape(schema) : this.baseSchema;
     try {
       const validatedValue = await schema.validateSync(value, rest);

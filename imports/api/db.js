@@ -1,9 +1,10 @@
-import Collection from './collection';
 import yup from 'yup';
+
+import Collection from './collection';
 
 
 // Describe collections
-const notesFields = {
+const notes = {
   _id: yup.string(),
   title: yup.string(),
   body: yup.string(),
@@ -13,7 +14,7 @@ const notesFields = {
 
 // Instantiate Mongo Collections
 const db = {
-  notes: new Collection('notes', notesFields),
+  notes: new Collection('notes', notes),
 };
 
 export default db;
